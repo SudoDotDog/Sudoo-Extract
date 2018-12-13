@@ -4,6 +4,8 @@
  * @description Index
  */
 
+import { isExist } from "./check";
+
 export class SafeExtract<T = any> {
 
     public static create<T>(object: Partial<T>): SafeExtract<T> {
@@ -34,7 +36,7 @@ export class SafeExtract<T = any> {
 
         const extracted: T[K] | undefined = this._object[key];
 
-        if (extracted) {
+        if (isExist<T[K]>(extracted)) {
             return new SafeExtract<T[K]>(extracted, this._error);
         }
 
@@ -45,7 +47,7 @@ export class SafeExtract<T = any> {
 
         const extracted: T[K] | undefined = this._object[key];
 
-        if (extracted) {
+        if (isExist<T[K]>(extracted)) {
             return new SafeExtract<T[K]>(extracted, this._error);
         }
 

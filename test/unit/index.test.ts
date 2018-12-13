@@ -43,6 +43,18 @@ describe('Given {SafeExtract} Class', (): void => {
         expect(actual).to.be.equal(value);
     });
 
+    it('should handle empty value', (): void => {
+
+        const instance: SafeExtract<{
+            a: string;
+        }> = SafeExtract.create({
+            a: '',
+        });
+
+        const actual: string = instance.safe('a').value;
+        expect(actual).to.be.equal('');
+    });
+
     it('should throw an error when property is not exist', (): void => {
 
         const instance: SafeExtract<{
