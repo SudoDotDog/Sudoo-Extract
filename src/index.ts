@@ -4,7 +4,7 @@
  * @description Index
  */
 
-export class SafeExtract<T> {
+export class SafeExtract<T = any> {
 
     public static create<T>(object: Partial<T>): SafeExtract<T> {
 
