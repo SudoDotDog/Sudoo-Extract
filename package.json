@@ -1,6 +1,6 @@
 {
   "name": "@sudoo/extract",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": ":envelope: Safe extract",
   "main": "dist/index.js",
   "directories": {
