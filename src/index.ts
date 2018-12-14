@@ -32,6 +32,12 @@ export class SafeExtract<T = any> {
         return new SafeExtract<T>(this._object, error);
     }
 
+    public direct<K extends keyof T>(key: K): T[K] {
+
+        const secured: SafeExtract<T[K]> = this.safe(key);
+        return secured.value as T[K];
+    }
+
     public safe<K extends keyof T>(key: K): SafeExtract<T[K]> {
 
         const extracted: T[K] | undefined = this._object[key];

@@ -43,6 +43,19 @@ describe('Given {SafeExtract} Class', (): void => {
         expect(actual).to.be.equal(value);
     });
 
+    it('should be able to get direct safe value', (): void => {
+
+        const value: string = chance.string();
+        const instance: SafeExtract<{
+            a: string;
+        }> = SafeExtract.create({
+            a: value,
+        });
+
+        const actual: string = instance.direct('a');
+        expect(actual).to.be.equal(value);
+    });
+
     it('should handle empty value', (): void => {
 
         const instance: SafeExtract<{
