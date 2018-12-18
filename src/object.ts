@@ -32,7 +32,7 @@ export class SafeObject<T = any> {
 
     public safe<K extends keyof T>(key: K): SafeExtract<T[K]> {
 
-        const extracted: Unsafe<T[K]> = this._object[key];
+        const extracted: Unsafe<T[K]> = (this as any)._object[key];
 
         if (isExist<T[K]>(extracted)) {
             return SafeExtract(extracted, this._error);
@@ -43,7 +43,7 @@ export class SafeObject<T = any> {
 
     public unsafe<K extends keyof T>(key: K): SafeExtract<T[K]> | null {
 
-        const extracted: Unsafe<T[K]> | undefined = this._object[key];
+        const extracted: Unsafe<T[K]> | undefined = (this as any)._object[key];
 
         if (isExist<T[K]>(extracted)) {
             return SafeExtract(extracted, this._error);

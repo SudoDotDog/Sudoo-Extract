@@ -8,6 +8,8 @@
 import { expect } from 'chai';
 import * as Chance from 'chance';
 import { SafeExtract } from '../../src';
+import { Unsafe } from '../../src/declare';
+import { SafeObject } from '../../src/object';
 
 describe('Given {SafeExtract} Class', (): void => {
 
@@ -15,11 +17,11 @@ describe('Given {SafeExtract} Class', (): void => {
 
     it('should be able to create a instance', (): void => {
 
-        const instance: SafeExtract<{
+        const instance: SafeExtract = SafeExtract<{
             a: string;
-        }> = SafeExtract({});
+        }>({});
 
-        expect(instance).to.be.instanceOf(SafeExtract);
+        expect(instance).to.be.instanceOf(SafeObject);
     });
 
     it('should be able to get value', (): void => {
@@ -39,7 +41,7 @@ describe('Given {SafeExtract} Class', (): void => {
             a: value,
         });
 
-        const actual: Partial<string> = instance.safe('a').value;
+        const actual: Unsafe<string> = instance.safe('a').value;
         expect(actual).to.be.equal(value);
     });
 
@@ -64,7 +66,7 @@ describe('Given {SafeExtract} Class', (): void => {
             a: '',
         });
 
-        const actual: string = instance.safe('a').value;
+        const actual: string = instance.safe('a').safe();
         expect(actual).to.be.equal('');
     });
 
@@ -72,9 +74,11 @@ describe('Given {SafeExtract} Class', (): void => {
 
         const instance: SafeExtract<{
             a: string;
-        }> = SafeExtract({});
+        }> = SafeExtract<{
+            a: string;
+        }>({});
 
-        const expr = () => instance.safe('a').value;
+        const expr = () => instance.safe('a').safe();
         expect(expr).to.be.throw('[Sudoo-Extract] Extract failed');
     });
 
@@ -87,7 +91,7 @@ describe('Given {SafeExtract} Class', (): void => {
             a: string;
         }>({}, new Error(errorMessage));
 
-        const expr = () => instance.safe('a').value;
+        const expr = () => instance.safe('a').safe();
         expect(expr).to.be.throw(errorMessage);
     });
 
@@ -108,7 +112,9 @@ describe('Given {SafeExtract} Class', (): void => {
 
         const instance: SafeExtract<{
             a: string;
-        }> = SafeExtract({});
+        }> = SafeExtract<{
+            a: string;
+        }>({});
 
         const actual: SafeExtract<string> | null = instance.unsafe('a');
         // tslint:disable-next-line
