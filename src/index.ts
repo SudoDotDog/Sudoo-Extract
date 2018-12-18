@@ -24,3 +24,6 @@ export const SafeExtract = <T>(value: Unsafe<T>, error: Error = new Error('[Sudo
         return new SafeObject<T>(value, error) as SafeExtract<T>;
     }
 };
+
+export { Unsafe, SafeObject, SafeValue };
+
