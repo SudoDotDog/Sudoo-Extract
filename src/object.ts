@@ -1,24 +1,25 @@
 /**
  * @author WMXPY
  * @namespace Extract
- * @description Index
+ * @description Object
  */
 
 import { isExist } from "./check";
+import { Unsafe } from "./declare";
 import { SafeExtract } from "./index";
 
 export class SafeObject<T = any> {
 
-    private readonly _object: Partial<T>;
+    private readonly _object: Unsafe<T>;
     private readonly _error: Error;
 
-    public constructor(object: Partial<T>, error: Error) {
+    public constructor(object: Unsafe<T>, error: Error) {
 
         this._object = object;
         this._error = error;
     }
 
-    public get value(): Partial<T> {
+    public get value(): Unsafe<T> {
 
         return this._object;
     }
@@ -31,7 +32,7 @@ export class SafeObject<T = any> {
 
     public safe<K extends keyof T>(key: K): SafeExtract<T[K]> {
 
-        const extracted: T[K] | undefined = this._object[key];
+        const extracted: Unsafe<T[K]> = this._object[key];
 
         if (isExist<T[K]>(extracted)) {
             return SafeExtract(extracted, this._error);
@@ -42,7 +43,7 @@ export class SafeObject<T = any> {
 
     public unsafe<K extends keyof T>(key: K): SafeExtract<T[K]> | null {
 
-        const extracted: T[K] | undefined = this._object[key];
+        const extracted: Unsafe<T[K]> | undefined = this._object[key];
 
         if (isExist<T[K]>(extracted)) {
             return SafeExtract(extracted, this._error);

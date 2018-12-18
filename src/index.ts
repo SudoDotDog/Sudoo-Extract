@@ -1,19 +1,20 @@
 /**
  * @author WMXPY
  * @namespace Extract
- * @description Declare
+ * @description Index
  */
 
 import { isBoolean, isNumber, isString } from "util";
+import { Basics, Unsafe } from "./declare";
 import { SafeObject } from "./object";
 import { SafeValue } from "./value";
 
-export type SafeExtract<T> =
-    T extends string | number | boolean
-    ? SafeValue<T> :
-    SafeObject<T>;
+export type SafeExtract<T = any> =
+    T extends Basics
+    ? SafeValue<T>
+    : SafeObject<T>;
 
-export const SafeExtract = <T = any>(value: T, error: Error = new Error('[Sudoo-Extract] Extract failed')): SafeExtract<T> => {
+export const SafeExtract = <T = any>(value: Unsafe<T>, error: Error = new Error('[Sudoo-Extract] Extract failed')): SafeExtract<T> => {
 
     if (isString(value) || isNumber(value) || isBoolean(value)) {
 

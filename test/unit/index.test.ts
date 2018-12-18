@@ -17,7 +17,7 @@ describe('Given {SafeExtract} Class', (): void => {
 
         const instance: SafeExtract<{
             a: string;
-        }> = SafeExtract.create({});
+        }> = SafeExtract({});
 
         expect(instance).to.be.instanceOf(SafeExtract);
     });
@@ -25,7 +25,7 @@ describe('Given {SafeExtract} Class', (): void => {
     it('should be able to get value', (): void => {
 
         const value: string = chance.string();
-        const instance: SafeExtract = SafeExtract.create(value);
+        const instance: SafeExtract = SafeExtract(value);
 
         expect(instance.value).to.be.equal(value);
     });
@@ -35,11 +35,11 @@ describe('Given {SafeExtract} Class', (): void => {
         const value: string = chance.string();
         const instance: SafeExtract<{
             a: string;
-        }> = SafeExtract.create({
+        }> = SafeExtract({
             a: value,
         });
 
-        const actual: string = instance.safe('a').value;
+        const actual: Partial<string> = instance.safe('a').value;
         expect(actual).to.be.equal(value);
     });
 
@@ -48,7 +48,7 @@ describe('Given {SafeExtract} Class', (): void => {
         const value: string = chance.string();
         const instance: SafeExtract<{
             a: string;
-        }> = SafeExtract.create({
+        }> = SafeExtract({
             a: value,
         });
 
@@ -60,7 +60,7 @@ describe('Given {SafeExtract} Class', (): void => {
 
         const instance: SafeExtract<{
             a: string;
-        }> = SafeExtract.create({
+        }> = SafeExtract({
             a: '',
         });
 
@@ -72,7 +72,7 @@ describe('Given {SafeExtract} Class', (): void => {
 
         const instance: SafeExtract<{
             a: string;
-        }> = SafeExtract.create({});
+        }> = SafeExtract({});
 
         const expr = () => instance.safe('a').value;
         expect(expr).to.be.throw('[Sudoo-Extract] Extract failed');
@@ -83,9 +83,9 @@ describe('Given {SafeExtract} Class', (): void => {
         const errorMessage: string = chance.string();
         const instance: SafeExtract<{
             a: string;
-        }> = SafeExtract.create<{
+        }> = SafeExtract<{
             a: string;
-        }>({}).onError(new Error(errorMessage));
+        }>({}, new Error(errorMessage));
 
         const expr = () => instance.safe('a').value;
         expect(expr).to.be.throw(errorMessage);
@@ -96,7 +96,7 @@ describe('Given {SafeExtract} Class', (): void => {
         const value: string = chance.string();
         const instance: SafeExtract<{
             a: string;
-        }> = SafeExtract.create({
+        }> = SafeExtract({
             a: value,
         });
 
@@ -108,7 +108,7 @@ describe('Given {SafeExtract} Class', (): void => {
 
         const instance: SafeExtract<{
             a: string;
-        }> = SafeExtract.create({});
+        }> = SafeExtract({});
 
         const actual: SafeExtract<string> | null = instance.unsafe('a');
         // tslint:disable-next-line
