@@ -6,7 +6,7 @@
 
 import { isExist } from "./check";
 import { Unsafe } from "./declare";
-import { SafeExtract } from "./index";
+import { createExtract, SafeExtract } from "./extract";
 
 export class SafeObject<T = any> {
 
@@ -35,7 +35,7 @@ export class SafeObject<T = any> {
         const extracted: Unsafe<T[K]> = (this as any)._object[key];
 
         if (isExist<T[K]>(extracted)) {
-            return SafeExtract(extracted, this._error);
+            return createExtract(extracted, this._error);
         }
 
         throw this._error;
@@ -46,7 +46,7 @@ export class SafeObject<T = any> {
         const extracted: Unsafe<T[K]> | undefined = (this as any)._object[key];
 
         if (isExist<T[K]>(extracted)) {
-            return SafeExtract(extracted, this._error);
+            return createExtract(extracted, this._error);
         }
 
         return null;

@@ -7,7 +7,8 @@
 
 import { expect } from 'chai';
 import * as Chance from 'chance';
-import { SafeExtract } from '../../src';
+import { SafeExtract } from '../../src/extract';
+import { Safe } from '../../src/index';
 import { SafeObject } from '../../src/object';
 import { SafeValue } from '../../src/value';
 
@@ -17,7 +18,7 @@ describe('Given [SafeExtract] Function', (): void => {
 
     it('should be able to create a safeObject', (): void => {
 
-        const instance = SafeExtract<{
+        const instance = Safe.extract<{
             a: string;
         }>({});
 
@@ -27,7 +28,7 @@ describe('Given [SafeExtract] Function', (): void => {
     it('should be able to create a safeValue', (): void => {
 
         const value: string = chance.string();
-        const instance: SafeExtract<string> = SafeExtract(value);
+        const instance: SafeExtract<string> = Safe.extract(value);
 
         expect(instance).to.be.instanceOf(SafeValue);
     });
@@ -38,7 +39,7 @@ describe('Given [SafeExtract] Function', (): void => {
             a: {
                 b: string;
             };
-        }> = SafeExtract({
+        }> = Safe.extract({
             a: {
                 b: chance.string(),
             },
@@ -51,7 +52,7 @@ describe('Given [SafeExtract] Function', (): void => {
 
         const instance: SafeExtract<{
             a: string;
-        }> = SafeExtract({
+        }> = Safe.extract({
             a: chance.string(),
         });
 
@@ -62,7 +63,7 @@ describe('Given [SafeExtract] Function', (): void => {
 
         const instance: SafeExtract<{
             a: string;
-        }> = SafeExtract<{
+        }> = Safe.extract<{
             a: string;
         }>({});
 
@@ -75,7 +76,7 @@ describe('Given [SafeExtract] Function', (): void => {
         const message: string = chance.string();
         const instance: SafeExtract<{
             a: string;
-        }> = SafeExtract<{
+        }> = Safe.extract<{
             a: string;
         }>({}, new Error(message));
 

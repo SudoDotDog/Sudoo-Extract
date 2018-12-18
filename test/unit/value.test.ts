@@ -7,7 +7,7 @@
 
 import { expect } from 'chai';
 import * as Chance from 'chance';
-import { SafeExtract } from '../../src';
+import { SafeExtract } from '../../src/extract';
 import { SafeValue } from '../../src/value';
 
 describe('Given {SafeValue} Class', (): void => {
