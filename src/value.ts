@@ -17,6 +17,11 @@ export class SafeValue<T> {
         this._error = error;
     }
 
+    public get value(): T | null | undefined {
+
+        return this.unsafe();
+    }
+
     public safe(): T {
 
         if (isExist<T>(this._value)) {
