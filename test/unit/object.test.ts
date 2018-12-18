@@ -7,7 +7,7 @@
 
 import { expect } from 'chai';
 import * as Chance from 'chance';
-import { SafeExtract } from '../../src';
+import { SafeExtract, SafeValue } from '../../src';
 import { Unsafe } from '../../src/declare';
 import { SafeObject } from '../../src/object';
 
@@ -26,7 +26,7 @@ describe('Given {SafeObject} Class', (): void => {
         expect(instance).to.be.instanceOf(SafeObject);
     });
 
-    it('should be able to get safe instance', (): void => {
+    it('should be able to get value instance', (): void => {
 
         const value: string = chance.string();
         const instance: SafeExtract<{
@@ -37,6 +37,23 @@ describe('Given {SafeObject} Class', (): void => {
 
         const actual: Unsafe<string> = instance.safe('a').value;
         expect(actual).to.be.equal(value);
+    });
+
+    it('should be able to call value getter', (): void => {
+
+        const value: string = chance.string();
+        const instance: SafeExtract<{
+            a: string;
+        }> = new SafeObject({
+            a: value,
+        }, new Error(chance.string()));
+
+        const actual: Unsafe<{
+            a: string;
+        }> = instance.value;
+        expect(actual).to.be.deep.equal({
+            a: value,
+        });
     });
 
     it('should be able to get direct safe value', (): void => {
