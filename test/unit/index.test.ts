@@ -8,69 +8,57 @@
 import { expect } from 'chai';
 import * as Chance from 'chance';
 import { SafeExtract } from '../../src';
-import { Unsafe } from '../../src/declare';
 import { SafeObject } from '../../src/object';
+import { SafeValue } from '../../src/value';
 
-describe('Given {SafeExtract} Class', (): void => {
+describe('Given [SafeExtract] Function', (): void => {
 
-    const chance: Chance.Chance = new Chance('extract-safeExtract');
+    const chance: Chance.Chance = new Chance('extract-extract');
 
-    it('should be able to create a instance', (): void => {
+    it('should be able to create a safeObject', (): void => {
 
-        const instance: SafeExtract = SafeExtract<{
+        const instance = SafeExtract<{
             a: string;
         }>({});
 
         expect(instance).to.be.instanceOf(SafeObject);
     });
 
-    it('should be able to get value', (): void => {
+    it('should be able to create a safeValue', (): void => {
 
         const value: string = chance.string();
-        const instance: SafeExtract = SafeExtract(value);
+        const instance: SafeExtract<string> = SafeExtract(value);
 
-        expect(instance.value).to.be.equal(value);
+        expect(instance).to.be.instanceOf(SafeValue);
     });
 
-    it('should be able to get safe instance', (): void => {
+    it('should be able to get a safeObject from a safeObject', (): void => {
 
-        const value: string = chance.string();
         const instance: SafeExtract<{
-            a: string;
+            a: {
+                b: string;
+            };
         }> = SafeExtract({
-            a: value,
+            a: {
+                b: chance.string(),
+            },
         });
 
-        const actual: Unsafe<string> = instance.safe('a').value;
-        expect(actual).to.be.equal(value);
+        expect(instance.safe('a')).to.be.instanceOf(SafeObject);
     });
 
-    it('should be able to get direct safe value', (): void => {
-
-        const value: string = chance.string();
-        const instance: SafeExtract<{
-            a: string;
-        }> = SafeExtract({
-            a: value,
-        });
-
-        const actual: string = instance.direct('a');
-        expect(actual).to.be.equal(value);
-    });
-
-    it('should handle empty value', (): void => {
+    it('should be able to get a safeValue from a safeObject', (): void => {
 
         const instance: SafeExtract<{
             a: string;
         }> = SafeExtract({
-            a: '',
+            a: chance.string(),
         });
 
-        const actual: string = instance.safe('a').safe();
-        expect(actual).to.be.equal('');
+        expect(instance.safe('a')).to.be.instanceOf(SafeValue);
     });
 
-    it('should throw an error when property is not exist', (): void => {
+    it('should be able to throw default error message', (): void => {
 
         const instance: SafeExtract<{
             a: string;
@@ -78,46 +66,20 @@ describe('Given {SafeExtract} Class', (): void => {
             a: string;
         }>({});
 
-        const expr = () => instance.safe('a').safe();
+        const expr = () => instance.safe('a');
         expect(expr).to.be.throw('[Sudoo-Extract] Extract failed');
     });
 
-    it('should be able to custom error', (): void => {
+    it('should be able to throw target error message', (): void => {
 
-        const errorMessage: string = chance.string();
+        const message: string = chance.string();
         const instance: SafeExtract<{
             a: string;
         }> = SafeExtract<{
             a: string;
-        }>({}, new Error(errorMessage));
+        }>({}, new Error(message));
 
-        const expr = () => instance.safe('a').safe();
-        expect(expr).to.be.throw(errorMessage);
-    });
-
-    it('should be able to get unsafe value', (): void => {
-
-        const value: string = chance.string();
-        const instance: SafeExtract<{
-            a: string;
-        }> = SafeExtract({
-            a: value,
-        });
-
-        const actual: SafeExtract<string> = instance.unsafe('a') as SafeExtract<string>;
-        expect(actual.value).to.be.equal(value);
-    });
-
-    it('should be able to get null when unsafe value not exist', (): void => {
-
-        const instance: SafeExtract<{
-            a: string;
-        }> = SafeExtract<{
-            a: string;
-        }>({});
-
-        const actual: SafeExtract<string> | null = instance.unsafe('a');
-        // tslint:disable-next-line
-        expect(actual).to.be.null;
+        const expr = () => instance.safe('a');
+        expect(expr).to.be.throw(message);
     });
 });

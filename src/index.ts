@@ -9,12 +9,12 @@ import { Basics, Unsafe } from "./declare";
 import { SafeObject } from "./object";
 import { SafeValue } from "./value";
 
-export type SafeExtract<T = any> =
+export type SafeExtract<T> =
     T extends Basics
     ? SafeValue<T>
     : SafeObject<T>;
 
-export const SafeExtract = <T = any>(value: Unsafe<T>, error: Error = new Error('[Sudoo-Extract] Extract failed')): SafeExtract<T> => {
+export const SafeExtract = <T>(value: Unsafe<T>, error: Error = new Error('[Sudoo-Extract] Extract failed')): SafeExtract<T> => {
 
     if (isString(value) || isNumber(value) || isBoolean(value)) {
 
