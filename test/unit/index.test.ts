@@ -12,7 +12,7 @@ import { Safe } from '../../src/index';
 import { SafeObject } from '../../src/object';
 import { SafeValue } from '../../src/value';
 
-describe('Given [SafeExtract] Function', (): void => {
+describe('Given {Safe} static class', (): void => {
 
     const chance: Chance.Chance = new Chance('extract-extract');
 
@@ -82,5 +82,23 @@ describe('Given [SafeExtract] Function', (): void => {
 
         const expr = () => instance.safe('a');
         expect(expr).to.be.throw(message);
+    });
+
+    it('should be able to create safe object directly', (): void => {
+
+        const message: string = chance.string();
+        const object: SafeObject<string> = Safe.object(message);
+
+        expect(object).to.be.instanceOf(SafeObject);
+        expect(object.value).to.be.equal(message);
+    });
+
+    it('should be able to create safe value directly', (): void => {
+
+        const message: string = chance.string(); 
+        const value: SafeValue<string> = Safe.value(message);
+
+        expect(value).to.be.instanceOf(SafeValue);
+        expect(value.value).to.be.equal(message);
     });
 });
