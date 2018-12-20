@@ -9,7 +9,7 @@ import { Basics, Unsafe } from "./declare";
 import { SafeObject } from "./object";
 import { SafeValue } from "./value";
 
-export type SafeExtract<T> =
+export type SafeExtract<T = any> =
     T extends Basics
     ? SafeValue<T>
     : SafeObject<T>;
