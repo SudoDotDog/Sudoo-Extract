@@ -32,4 +32,5 @@ export class Safe {
     }
 }
 
-export { Unsafe, SafeObject, SafeValue };
+export { SafeExtract, SafeObject, SafeValue, Unsafe };
+
