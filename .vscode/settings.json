@@ -6,7 +6,8 @@
         "Sudoo",
         "WMXPY",
         "ifeq",
-        "setx"
+        "setx",
+        "triforce"
     ],
     "tslint.configFile": "typescript/tslint.json"
 }
