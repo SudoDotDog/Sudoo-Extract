@@ -3,13 +3,10 @@ build := typescript/tsconfig.build.json
 dev := typescript/tsconfig.dev.json
 
 # NPX functions
-ifeq ($(OS), Windows_NT)
-	tsc := .\node_modules\.bin\tsc
-	mocha := .\node_modules\.bin\mocha
-else
-	tsc := node_modules/.bin/tsc
-	mocha := node_modules/.bin/mocha
-endif
+tsc := node_modules/.bin/tsc
+mocha := node_modules/.bin/mocha
+
+.IGNORE: clean-linux
 
 main: dev
 
@@ -23,21 +20,12 @@ build:
 
 tests:
 	@echo "[INFO] Testing with Mocha"
-ifeq ($(OS), Windows_NT)
-	@-setx NODE_ENV test
-else
-	@-export NODE_ENV=test
-endif
-	@$(mocha)
+	@NODE_ENV=test $(mocha)
 
 cov:
 	@echo "[INFO] Testing with Nyc and Mocha"
-ifeq ($(OS), Windows_NT)
-	@-setx NODE_ENV test
-else
-	@-export NODE_ENV=test
-endif
-	@nyc $(mocha)
+	@NODE_ENV=test \
+	nyc $(mocha)
 
 install:
 	@echo "[INFO] Installing dev Dependencies"
@@ -47,16 +35,12 @@ install-prod:
 	@echo "[INFO] Installing Dependencies"
 	@yarn install --production=true
 
-clean:
-ifeq ($(OS), Windows_NT)
-	@echo "[INFO] Skipping"
-else
+clean-linux:
 	@echo "[INFO] Cleaning dist files"
 	@rm -rf dist
 	@rm -rf .nyc_output
 	@rm -rf coverage
-endif
 
-publish: install tests build
+publish: install tests clean-linux build
 	@echo "[INFO] Publishing package"
 	@npm publish --access=public
