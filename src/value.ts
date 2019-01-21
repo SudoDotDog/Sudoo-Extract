@@ -23,14 +23,14 @@ export class SafeValue<T> {
         return this.unsafe();
     }
 
-    public safe(): T {
+    public safe(currentError?: Error): T {
 
         if (isExist<T>(this._value)) {
 
             return this._value;
         }
 
-        throw this._error;
+        throw currentError || this._error;
     }
 
     public unsafe(): Unsafe<T> {

@@ -94,6 +94,19 @@ describe('Given {SafeObject} Class', (): void => {
         expect(expr).to.be.throw(errorMessage);
     });
 
+    it('should be able to replace error', (): void => {
+
+        const errorMessage: string = chance.string();
+        const instance: SafeExtract<{
+            a: string;
+        }> = new SafeObject<{
+            a: string;
+        }>({}, new Error(chance.string()));
+
+        const expr = () => instance.safe('a', new Error(errorMessage));
+        expect(expr).to.be.throw(errorMessage);
+    });
+
     it('should be able to get unsafe value', (): void => {
 
         const value: string = chance.string();

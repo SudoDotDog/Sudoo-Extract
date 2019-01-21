@@ -24,13 +24,13 @@ export class SafeObject<T = any> {
         return this._object;
     }
 
-    public direct<K extends keyof T>(key: K): T[K] {
+    public direct<K extends keyof T>(key: K, currentError?: Error): T[K] {
 
-        const secured: SafeExtract<T[K]> = this.safe(key);
+        const secured: SafeExtract<T[K]> = this.safe(key, currentError);
         return secured.value as T[K];
     }
 
-    public safe<K extends keyof T>(key: K): SafeExtract<T[K]> {
+    public safe<K extends keyof T>(key: K, currentError?: Error): SafeExtract<T[K]> {
 
         const extracted: Unsafe<T[K]> = (this as any)._object[key];
 
@@ -38,7 +38,7 @@ export class SafeObject<T = any> {
             return createExtract(extracted, this._error);
         }
 
-        throw this._error;
+        throw currentError || this._error;
     }
 
     public unsafe<K extends keyof T>(key: K): SafeExtract<T[K]> | null {

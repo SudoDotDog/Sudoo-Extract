@@ -95,7 +95,7 @@ describe('Given {Safe} static class', (): void => {
 
     it('should be able to create safe value directly', (): void => {
 
-        const message: string = chance.string(); 
+        const message: string = chance.string();
         const value: SafeValue<string> = Safe.value(message);
 
         expect(value).to.be.instanceOf(SafeValue);
