@@ -11,17 +11,17 @@ import { SafeValue } from "./value";
 
 export class Safe {
 
-    public static extract<T>(value: Unsafe<T>, error: Error = this._defaultError()): SafeExtract<T> {
+    public static extract<T = any>(value: Unsafe<T>, error: Error = this._defaultError()): SafeExtract<T> {
 
         return createExtract(value, error);
     }
 
-    public static object<T>(value: Unsafe<T>, error: Error = this._defaultError()): SafeObject<T> {
+    public static object<T = any>(value: Unsafe<T>, error: Error = this._defaultError()): SafeObject<T> {
 
         return new SafeObject<T>(value, error);
     }
 
-    public static value<T>(value: Unsafe<T>, error: Error = this._defaultError()): SafeValue<T> {
+    public static value<T = any>(value: Unsafe<T>, error: Error = this._defaultError()): SafeValue<T> {
 
         return new SafeValue<T>(value, error);
     }
@@ -32,4 +32,5 @@ export class Safe {
     }
 }
 
-export { Unsafe, SafeObject, SafeValue };
+export { SafeExtract, SafeObject, SafeValue, Unsafe };
+

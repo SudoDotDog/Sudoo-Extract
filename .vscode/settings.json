@@ -4,9 +4,11 @@
         "DBUG",
         "ERRR",
         "Sudoo",
+        "WMXPY",
         "ifeq",
         "setx",
-        "tshook"
+        "tshook",
+        "triforce"
     ],
     "tslint.configFile": "typescript/tslint.json"
 }
