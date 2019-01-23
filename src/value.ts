@@ -4,7 +4,7 @@
  * @description Value
  */
 
-import { isExist } from "./check";
+import { isExist, isSomething } from "./check";
 import { Unsafe } from "./declare";
 
 export class SafeValue<T> {
@@ -21,6 +21,16 @@ export class SafeValue<T> {
     public get value(): Unsafe<T> {
 
         return this.unsafe();
+    }
+
+    public ensure(currentError?: Error): T {
+
+        if (isSomething<T>(this._value)) {
+
+            return this._value;
+        }
+
+        throw currentError || this._error;
     }
 
     public safe(currentError?: Error): T {

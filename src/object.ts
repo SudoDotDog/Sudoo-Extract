@@ -4,7 +4,7 @@
  * @description Object
  */
 
-import { isExist } from "./check";
+import { isExist, isSomething } from "./check";
 import { Unsafe } from "./declare";
 import { createExtract, SafeExtract } from "./extract";
 
@@ -28,6 +28,28 @@ export class SafeObject<T = any> {
 
         const secured: SafeExtract<T[K]> = this.safe(key, currentError);
         return secured.value as T[K];
+    }
+
+    public directEnsure<K extends keyof T>(key: K, currentError?: Error): T[K] {
+
+        const directed: T[K] = this.direct(key, currentError);
+
+        if (!isSomething(directed)) {
+
+            throw currentError || this._error;
+        }
+        return directed;
+    }
+
+    public ensure<K extends keyof T>(key: K, currentError?: Error): SafeExtract<T[K]> {
+
+        const extracted: Unsafe<T[K]> = (this as any)._object[key];
+
+        if (isSomething<T[K]>(extracted)) {
+            return createExtract(extracted, this._error);
+        }
+
+        throw currentError || this._error;
     }
 
     public safe<K extends keyof T>(key: K, currentError?: Error): SafeExtract<T[K]> {
