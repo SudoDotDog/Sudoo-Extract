@@ -5,10 +5,11 @@
         "ERRR",
         "Sudoo",
         "WMXPY",
+        "codecov",
         "ifeq",
         "setx",
-        "tshook",
-        "triforce"
+        "triforce",
+        "tshook"
     ],
     "tslint.configFile": "typescript/tslint.json"
 }

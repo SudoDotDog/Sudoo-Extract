@@ -4,12 +4,11 @@
  * @description Check
  */
 
-import { isNull, isUndefined } from "util";
 import { Unsafe } from "./declare";
 
 export const isExist = <T>(object: Unsafe<T>): object is T => {
 
-    return !(isUndefined(object) || isNull(object));
+    return !(object === undefined || object === null);
 };
 
 export const isSomething = <T>(object: Unsafe<T>): object is T => {
