@@ -73,4 +73,15 @@ export class SafeObject<T = any> {
 
         return null;
     }
+
+    public unsafeValue<K extends keyof T>(key: K): T[K] | null {
+
+        const extracted: Unsafe<T[K]> | undefined = (this as any)._object[key];
+
+        if (extracted) {
+            return extracted as T[K];
+        }
+
+        return null;
+    }
 }
