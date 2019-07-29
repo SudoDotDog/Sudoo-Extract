@@ -12,11 +12,11 @@ main: dev
 
 dev:
 	@echo "[INFO] Building for development"
-	@$(tsc) --p $(dev)
+	@NODE_ENV=development $(tsc) --p $(dev)
 
 build:
 	@echo "[INFO] Building for production"
-	@$(tsc) --p $(build)
+	@NODE_ENV=production $(tsc) --p $(build)
 
 tests:
 	@echo "[INFO] Testing with Mocha"
