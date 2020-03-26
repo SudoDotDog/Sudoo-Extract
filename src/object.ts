@@ -27,7 +27,7 @@ export class SafeObject<T = any> {
     /**
      * 
      * @param key string
-     * @param currentError Error
+     * @param currentError Error (optional)
      * 
      * @returns Non-Null, Non-Undefined value
      */
@@ -40,7 +40,7 @@ export class SafeObject<T = any> {
     /**
      * 
      * @param key string
-     * @param currentError Error
+     * @param currentError Error (optional)
      * 
      * @returns Non-Null, Non-Undefined, Verified value
      */
@@ -49,12 +49,6 @@ export class SafeObject<T = any> {
         const directed: T[K] = this.direct(key, currentError);
 
         if (!verifyFunction(directed)) {
-
-            throw currentError || this._error;
-        }
-
-        if (!isSomething(directed)) {
-
             throw currentError || this._error;
         }
         return directed;
@@ -63,7 +57,7 @@ export class SafeObject<T = any> {
     /**
      * 
      * @param key string
-     * @param currentError Error
+     * @param currentError Error (optional)
      * 
      * @returns Non-Null, Non-Undefined, Boolean(value) is true, Verified value
      */
@@ -72,17 +66,15 @@ export class SafeObject<T = any> {
         const directed: T[K] = this.directEnsure(key, currentError);
 
         if (!verifyFunction(directed)) {
-
             throw currentError || this._error;
         }
-
         return directed;
     }
 
     /**
      * 
      * @param key string
-     * @param currentError Error
+     * @param currentError Error (optional)
      * 
      * @returns Non-Null, Non-Undefined, Boolean(value) is true value
      */
@@ -91,7 +83,6 @@ export class SafeObject<T = any> {
         const directed: T[K] = this.direct(key, currentError);
 
         if (!isSomething(directed)) {
-
             throw currentError || this._error;
         }
         return directed;
