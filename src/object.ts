@@ -24,12 +24,68 @@ export class SafeObject<T = any> {
         return this._object;
     }
 
+    /**
+     * 
+     * @param key string
+     * @param currentError Error
+     * 
+     * @returns Non-Null, Non-Undefined value
+     */
     public direct<K extends keyof T>(key: K, currentError?: Error): T[K] {
 
         const secured: SafeExtract<T[K]> = this.safe(key, currentError);
         return secured.value as T[K];
     }
 
+    /**
+     * 
+     * @param key string
+     * @param currentError Error
+     * 
+     * @returns Non-Null, Non-Undefined, Verified value
+     */
+    public directVerify<K extends keyof T>(key: K, verifyFunction: (value: T[K]) => boolean, currentError?: Error): T[K] {
+
+        const directed: T[K] = this.direct(key, currentError);
+
+        if (!verifyFunction(directed)) {
+
+            throw currentError || this._error;
+        }
+
+        if (!isSomething(directed)) {
+
+            throw currentError || this._error;
+        }
+        return directed;
+    }
+
+    /**
+     * 
+     * @param key string
+     * @param currentError Error
+     * 
+     * @returns Non-Null, Non-Undefined, Boolean(value) is true, Verified value
+     */
+    public directEnsureVerify<K extends keyof T>(key: K, verifyFunction: (value: T[K]) => boolean, currentError?: Error): T[K] {
+
+        const directed: T[K] = this.directEnsure(key, currentError);
+
+        if (!verifyFunction(directed)) {
+
+            throw currentError || this._error;
+        }
+
+        return directed;
+    }
+
+    /**
+     * 
+     * @param key string
+     * @param currentError Error
+     * 
+     * @returns Non-Null, Non-Undefined, Boolean(value) is true value
+     */
     public directEnsure<K extends keyof T>(key: K, currentError?: Error): T[K] {
 
         const directed: T[K] = this.direct(key, currentError);
