@@ -9,6 +9,11 @@ import { Unsafe } from "./declare";
 
 export class SafeValue<T> {
 
+    public static from<T extends any>(value: Unsafe<T>, error: Error) {
+
+        return new SafeValue(value, error);
+    }
+
     private _value: Unsafe<T>;
     private _error: Error;
 

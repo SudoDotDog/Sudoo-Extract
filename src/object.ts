@@ -10,6 +10,11 @@ import { createExtract, SafeExtract } from "./extract";
 
 export class SafeObject<T = any> {
 
+    public static from<T extends any>(value: Unsafe<T>, error: Error) {
+
+        return new SafeObject(value, error);
+    }
+
     private readonly _object: Unsafe<T>;
     private readonly _error: Error;
 
