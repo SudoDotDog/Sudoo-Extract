@@ -38,6 +38,15 @@ export class SafeValue<T> {
         throw currentError || this._error;
     }
 
+    public ensureVerify(verifyFunction: (value: T) => boolean, currentError?: Error): T {
+
+        const ensure: T = this.ensure();
+        if (!verifyFunction(ensure)) {
+            throw currentError || this._error;
+        }
+        return ensure;
+    }
+
     public safe(currentError?: Error): T {
 
         if (isExist<T>(this._value)) {
@@ -48,9 +57,27 @@ export class SafeValue<T> {
         throw currentError || this._error;
     }
 
+    public safeVerify(verifyFunction: (value: T) => boolean, currentError?: Error): T {
+
+        const safe: T = this.safe();
+        if (!verifyFunction(safe)) {
+            throw currentError || this._error;
+        }
+        return safe;
+    }
+
     public unsafe(): Unsafe<T> {
 
         return this._value;
+    }
+
+    public verify(verifyFunction: (value: T | Unsafe<T>) => boolean, currentError?: Error): T | Unsafe<T> {
+
+        const unsafe: Unsafe<T> = this.unsafe();
+        if (!verifyFunction(unsafe)) {
+            throw currentError || this._error;
+        }
+        return unsafe;
     }
 }
 
