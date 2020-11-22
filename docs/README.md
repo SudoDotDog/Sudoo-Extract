@@ -6,3 +6,11 @@
 [![downloads](https://img.shields.io/npm/dm/@sudoo/extract.svg)](https://www.npmjs.com/package/@sudoo/extract)
 
 :envelope: Safe extract
+
+## Install
+
+```sh
+yarn add @sudoo/extract
+# Or
+npm install @sudoo/extract --save
+```
