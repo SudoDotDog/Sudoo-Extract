@@ -1,8 +1,6 @@
 {
-    "compileOnSave": false,
     "compilerOptions": {
         "alwaysStrict": true,
-        "declaration": true,
         "downlevelIteration": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
@@ -15,19 +13,17 @@
         "noImplicitAny": true,
         "noImplicitReturns": true,
         "noImplicitThis": true,
-        "outDir": "../app",
         "removeComments": true,
         "resolveJsonModule": true,
         "strict": true,
-        "strictNullChecks": true,
-        "target": "es6"
+        "strictNullChecks": true
     },
     "exclude": [
-        "../node_modules",
-        "../script",
-        "../test"
+        "../node_modules"
     ],
     "include": [
-        "../src/**/*"
+        "../src/**/*",
+        "../script/**/*",
+        "../test/**/*"
     ]
 }
