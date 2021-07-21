@@ -1,7 +1,7 @@
 {
   "name": "@sudoo/extract",
   "version": "1.4.2",
-  "description": ":envelope: Safe extract",
+  "description": "Safe extract",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SudoDotDog/Sudoo-Extract.git"
@@ -17,8 +17,9 @@
   },
   "homepage": "https://github.com/SudoDotDog/Sudoo-Extract#readme",
   "devDependencies": {
-    "@sudoo/io": "^1.8.0",
-    "@sudoo/triforce": "^2.9.28"
+    "@sudoo/build-utils": "^1.0.0",
+    "@sudoo/license": "^1.1.0",
+    "@sudoo/triforce": "^2.8.28"
   },
   "nyc": {
     "extension": [
