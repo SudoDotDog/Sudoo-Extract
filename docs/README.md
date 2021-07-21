@@ -14,3 +14,14 @@ yarn add @sudoo/extract
 # Or
 npm install @sudoo/extract --save
 ```
+
+## Usage
+
+```ts
+import { Safe } from "@sudoo/extract";
+
+const target = Safe.extract({
+    a: 1,
+    b: "2",
+});
+```
