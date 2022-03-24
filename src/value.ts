@@ -9,7 +9,7 @@ import { Unsafe } from "./declare";
 
 export class SafeValue<T> {
 
-    public static from<T extends any>(value: Unsafe<T>, error: Error): SafeValue<T> {
+    public static from<T>(value: Unsafe<T>, error: Error): SafeValue<T> {
 
         return new SafeValue(value, error);
     }
