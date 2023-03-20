@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/SudoDotDog/Sudoo-Extract#readme",
   "devDependencies": {
-    "@sudoo/triforce": "^3.10.1"
+    "@sudoo/triforce": "^3.11.0"
   },
   "nyc": {
     "extension": [
